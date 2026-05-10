@@ -1,3 +1,59 @@
+/* permanent-marker-regular — file lives in public/assets/fonts/ */
+@font-face {
+	font-display: swap;
+	font-family: 'Permanent Marker';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/assets/fonts/permanent-marker-v16-latin-regular.woff2') format('woff2');
+}
+/* public-sans-regular - latin */
+@font-face {
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Public Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/assets/fonts/public-sans-v21-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* public-sans-italic - latin */
+  @font-face {
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Public Sans';
+	font-style: italic;
+	font-weight: 400;
+	src: url('/assets/fonts/public-sans-v21-latin-italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* public-sans-700 - latin */
+  @font-face {
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Public Sans';
+	font-style: normal;
+	font-weight: 700;
+	src: url('/assets/fonts/public-sans-v21-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* rubik-regular - latin */
+@font-face {
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Rubik';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/assets/fonts/rubik-v31-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* rubik-500 - latin */
+  @font-face {
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Rubik';
+	font-style: normal;
+	font-weight: 500;
+	src: url('/assets/fonts/rubik-v31-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* rubik-600 - latin */
+  @font-face {
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Rubik';
+	font-style: normal;
+	font-weight: 600;
+	src: url('/assets/fonts/rubik-v31-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
 /* Global variables */
 :root {
 	/* Colors */
@@ -72,6 +128,7 @@
 		"Open Sans", "Helvetica Neue", sans-serif;
 	--font-body: "Public Sans", var(--font-system);
 	--font-brand: Rubik, var(--font-system);
+	
 
 	/* Transitions */
 	--theme-transition: 0.2s ease-in-out;
