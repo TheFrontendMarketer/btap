@@ -6,11 +6,12 @@ interface Props {
 }
 
 const { data, id } = Astro.props.project;
+const previewSrc = data.thumb ?? data.img;
 ---
 
 <a class="card" href={`/work/${id}`}>
 	<span class="title">{data.title}</span>
-	<img src={data.img} alt={data.img_alt || ''} loading="lazy" decoding="async" />
+	<img src={previewSrc} alt={data.img_alt || ''} loading="lazy" decoding="async" />
 </a>
 
 <style>

@@ -2,6 +2,8 @@
 title: The Mandalorian
 publishDate: 2020-03-04 00:00:00
 img: https://res.cloudinary.com/dhytwf10i/image/upload/v1778421921/mando-with-background_asujrz.png
+# Card preview only: CDN crop anchored top (trial for this piece; detail page still uses `img` above)
+thumb: https://res.cloudinary.com/dhytwf10i/image/upload/c_fill,g_north,h_704,w_1200/v1778421921/mando-with-background_asujrz.png
 img_alt: The Mandalorian action figure standing
 description: |
   The Mandalorian is gazing off into the sunset.

@@ -12,6 +12,8 @@ export const collections = {
 			publishDate: z.coerce.date(),
 			tags: z.array(z.string()),
 			img: z.string(),
+			/** Optional card-only image URL (detail page still uses `img`). */
+			thumb: z.string().optional(),
 			img_alt: z.string().optional(),
 		}),
 	}),
