@@ -1,14 +1,14 @@
 ---
-title: Markdown Mystery Tour
+title: Spider-Punk
 publishDate: 2020-03-02 00:00:00
-img: /assets/stock-1.jpg
-img_alt: Iridescent ripples of a bright blue and pink liquid
+img: https://res.cloudinary.com/dhytwf10i/image/upload/v1778422389/spider-punk-jump_tgbscn.png
+img_alt: Spider-Punk jumping up in the air
 description: |
-  We designed a whodunnit-style game to introduce Markdown formatting. Suspense — suspicion — syntax!
+  Spider-Punk jumps up for a wild pose while playing guitar.
 tags:
-  - Design
-  - Dev
-  - User Testing
+  - Marvel
+  - Spider-Man
+  - Marvel Legends
 ---
 
 ## Level-two heading
