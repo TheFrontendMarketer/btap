@@ -1,0 +1,232 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+
+import { categoryToSlug } from '../../../constants';
+import { getBlogHeroSrc } from '../../../utils/blogImages';
+import ContactCTA from '../../../components/ContactCTA.astro';
+import Hero from '../../../components/Hero.astro';
+import Icon from '../../../components/Icon.astro';
+import Pill from '../../../components/Pill.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+interface Props {
+	entry: CollectionEntry<'blog'>;
+}
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	return posts.map((entry) => ({
+		params: {
+			category: categoryToSlug(entry.data.category),
+			slug: entry.data.slug,
+		},
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const dateLabel = entry.data.publishDate.toLocaleDateString('en-US', {
+	month: 'short',
+	day: 'numeric',
+	year: 'numeric',
+});
+const isoDate = entry.data.publishDate.toISOString().slice(0, 10);
+---
+
+<BaseLayout title={`${entry.data.title} | Blog`} description={entry.data.description}>
+	<div class="stack gap-20">
+		<div class="stack gap-15">
+			<header>
+				<div class="wrapper stack gap-2">
+					<a class="back-link" href="/blog/"><Icon icon="arrow-left" /> Blog</a>
+					<Hero title={entry.data.title} align="start">
+						<p class="description">{entry.data.description}</p>
+						<div class="details">
+							<p class="post-meta">
+								<time datetime={isoDate}>{dateLabel}</time>
+								<span class="post-meta__sep">·</span>
+								<span>{entry.data.category}</span>
+							</p>
+							<div class="tags">
+								{entry.data.tags.map((t) => <Pill>{t}</Pill>)}
+							</div>
+						</div>
+					</Hero>
+				</div>
+			</header>
+			<main class="wrapper">
+				<div class="stack gap-10">
+					{
+						entry.data.img && (
+							<figure class="article-hero">
+								<img
+									class="article-hero__img"
+									src={getBlogHeroSrc(entry.data)}
+									alt={entry.data.img_alt ?? ''}
+									width="800"
+									height="500"
+									loading="eager"
+									fetchpriority="high"
+									decoding="async"
+								/>
+							</figure>
+						)
+					}
+					<div class="content">
+						<Content />
+					</div>
+				</div>
+			</main>
+		</div>
+		<ContactCTA />
+	</div>
+</BaseLayout>
+
+<style>
+	header {
+		padding-bottom: 2.5rem;
+		border-bottom: 1px solid var(--gray-800);
+	}
+
+	.back-link {
+		display: none;
+	}
+
+	.details {
+		display: flex;
+		flex-direction: column;
+		padding: 0.5rem;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.post-meta {
+		margin: 0;
+		font-size: var(--text-sm);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--gray-400);
+		font-weight: 500;
+	}
+
+	.post-meta__sep {
+		margin-inline: 0.35rem;
+		opacity: 0.7;
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		justify-content: center;
+	}
+
+	.description {
+		margin: 0;
+		font-size: var(--text-lg);
+		line-height: 1.5;
+		max-width: 54ch;
+		color: var(--gray-200);
+		text-align: center;
+	}
+
+	.article-hero {
+		margin: 0;
+		width: 100%;
+		max-width: 800px;
+		margin-inline: auto;
+		aspect-ratio: 800 / 500;
+		border-radius: 1.5rem;
+		overflow: hidden;
+		box-shadow: var(--shadow-sm);
+		border: 1px solid var(--gray-800);
+		background: var(--gradient-subtle);
+	}
+
+	.article-hero__img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	.content {
+		max-width: 65ch;
+		margin-inline: auto;
+	}
+
+	.content > :global(* + *) {
+		margin-top: 1rem;
+	}
+
+	.content :global(h1),
+	.content :global(h2),
+	.content :global(h3),
+	.content :global(h4),
+	.content :global(h5) {
+		margin: 1.5rem 0;
+	}
+
+	.content :global(img) {
+		border-radius: 1.5rem;
+		box-shadow: var(--shadow-sm);
+		background: var(--gradient-subtle);
+		border: 1px solid var(--gray-800);
+	}
+
+	.content :global(blockquote) {
+		font-size: var(--text-lg);
+		font-family: var(--font-brand);
+		font-weight: 600;
+		line-height: 1.1;
+		padding-inline-start: 1.5rem;
+		border-inline-start: 0.25rem solid var(--accent-dark);
+		color: var(--gray-0);
+	}
+
+	.back-link,
+	.content :global(a) {
+		text-decoration: 1px solid underline transparent;
+		text-underline-offset: 0.25em;
+		transition: text-decoration-color var(--theme-transition);
+	}
+
+	.back-link:hover,
+	.back-link:focus,
+	.content :global(a:hover),
+	.content :global(a:focus) {
+		text-decoration-color: currentColor;
+	}
+
+	@media (min-width: 50em) {
+		.back-link {
+			display: block;
+			align-self: flex-start;
+		}
+
+		.details {
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem 2rem;
+			width: 100%;
+			max-width: 65ch;
+		}
+
+		.tags {
+			justify-content: flex-end;
+		}
+
+		.description {
+			text-align: start;
+			margin-inline: unset;
+		}
+
+		.content :global(blockquote) {
+			font-size: var(--text-2xl);
+		}
+	}
+</style>

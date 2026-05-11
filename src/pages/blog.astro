@@ -1,48 +1,37 @@
 ---
+import { getCollection } from "astro:content";
+
 import ContactCTA from "../components/ContactCTA.astro";
 import Hero from "../components/Hero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getBlogCategoryPath, getBlogPostPath } from "../constants";
+import { getBlogFeaturedSrc, getBlogThumbSrc } from "../utils/blogImages";
 
-/** Demo posts — replace with a content collection when you’re ready */
-const posts = [
-  {
-    title: "Shooting the Black Series outdoors",
-    excerpt:
-      "How I balance natural light with figure scale so the plastic reads like character, not toy shelf.",
-    date: "May 8, 2026",
-    category: "Star Wars",
-    featured: true,
-  },
-  {
-    title: "Marvel Legends: posing for drama",
-    excerpt:
-      "A few joint tricks and camera height choices that sell weight in a static shot.",
-    date: "May 5, 2026",
-    category: "Marvel Legends",
-  },
-  {
-    title: "Stormtrooper squads in the snow",
-    excerpt:
-      "White balance and contrast when your subject is already mostly white plastic.",
-    date: "May 1, 2026",
-    category: "Star Wars",
-  },
-  {
-    title: "Backgrounds that don’t fight the figure",
-    excerpt:
-      "When to blur, when to simplify, and when to let the shelf read as environment.",
-    date: "Apr 24, 2026",
-    category: "Marvel Legends",
-  },
-];
+const published = await getCollection("blog", ({ data }) => !data.draft);
+const sorted = published.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+const featured =
+  sorted.find((p) => p.data.featured) ?? sorted[0] ?? null;
+const rest = featured
+  ? sorted.filter((p) => p !== featured).slice(0, 4)
+  : sorted.slice(0, 4);
 
-const featured = posts.find((p) => p.featured) ?? posts[0];
-const rest = posts.filter((p) => p !== featured);
+function formatDate(d: Date) {
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
-const categories = [
-  { label: "Marvel Legends", href: "#marvel-legends" },
-  { label: "Star Wars", href: "#star-wars" },
-];
+const categoryLabels = [
+  ...new Set(sorted.map((p) => p.data.category)),
+].sort();
+const categories = categoryLabels.map((label) => ({
+  label,
+  href: getBlogCategoryPath(label),
+}));
 ---
 
 <BaseLayout
@@ -64,40 +53,90 @@ const categories = [
             <h2 class="section-label__text">Featured stories</h2>
           </div>
 
-          <article class="featured-card">
-            <a class="featured-card__media" href="#">
-              <span class="thumb thumb--featured" aria-hidden="true"></span>
-            </a>
-            <div class="featured-card__body">
-              <p class="meta">
-                <time datetime="2026-05-08">{featured.date}</time>
-                <span class="meta__sep">·</span>
-                <span>{featured.category}</span>
-              </p>
-              <h3 class="featured-card__title">
-                <a href="#">{featured.title}</a>
-              </h3>
-              <p class="featured-card__excerpt">{featured.excerpt}</p>
-            </div>
-          </article>
+          {
+            featured && (
+              <article class="featured-card">
+                <a
+                  class="featured-card__media"
+                  href={getBlogPostPath(
+                    featured.data.category,
+                    featured.data.slug
+                  )}
+                >
+                  <img
+                    class="thumb thumb--featured"
+                    src={getBlogFeaturedSrc(featured.data)}
+                    alt={featured.data.img_alt ?? ""}
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    width="1200"
+                    height="900"
+                  />
+                </a>
+                <div class="featured-card__body">
+                  <p class="meta">
+                    <time datetime={featured.data.publishDate.toISOString()}>
+                      {formatDate(featured.data.publishDate)}
+                    </time>
+                    <span class="meta__sep">·</span>
+                    <span>{featured.data.category}</span>
+                  </p>
+                  <h3 class="featured-card__title">
+                    <a
+                      href={getBlogPostPath(
+                        featured.data.category,
+                        featured.data.slug
+                      )}
+                    >
+                      {featured.data.title}
+                    </a>
+                  </h3>
+                  <p class="featured-card__excerpt">
+                    {featured.data.description}
+                  </p>
+                </div>
+              </article>
+            )
+          }
 
           <div class="post-grid">
             {
               rest.map((post) => (
                 <article class="post-card">
-                  <a class="post-card__media" href="#">
-                    <span class="thumb" aria-hidden="true" />
+                  <a
+                    class="post-card__media"
+                    href={getBlogPostPath(post.data.category, post.data.slug)}
+                  >
+                    <img
+                      class="thumb"
+                      src={getBlogThumbSrc(post.data)}
+                      alt={post.data.img_alt ?? ""}
+                      loading="lazy"
+                      decoding="async"
+                      width="800"
+                      height="500"
+                    />
                   </a>
                   <div class="post-card__body">
                     <p class="meta">
-                      <time>{post.date}</time>
+                      <time datetime={post.data.publishDate.toISOString()}>
+                        {formatDate(post.data.publishDate)}
+                      </time>
                       <span class="meta__sep">·</span>
-                      <span>{post.category}</span>
+                      <span>{post.data.category}</span>
                     </p>
                     <h3 class="post-card__title">
-                      <a href="#">{post.title}</a>
+                      <a
+                        href={getBlogPostPath(
+                          post.data.category,
+                          post.data.slug
+                        )}
+                      >
+                        {post.data.title}
+                      </a>
                     </h3>
-                    <p class="post-card__excerpt">{post.excerpt}</p>
+                    <p class="post-card__excerpt">{post.data.description}</p>
                   </div>
                 </article>
               ))
@@ -191,6 +230,7 @@ const categories = [
     display: block;
     width: 100%;
     aspect-ratio: 16 / 10;
+    object-fit: cover;
     background: var(--gradient-subtle);
     border: 1px solid var(--gray-800);
     transition: box-shadow var(--theme-transition);
