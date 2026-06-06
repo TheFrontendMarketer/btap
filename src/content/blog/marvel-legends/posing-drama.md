@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "Marvel Legends: posing for drama"
 description: "Joint tricks and camera height that sell weight in a static shot."
 publishDate: 2026-05-05 12:00:00
@@ -13,4 +13,4 @@ img_alt: Groot action figure with flower outside
 
 ## Quick checklist
 
-Drop the camera to chest height, exaggerate the back leg, and let the head lead the line of action.
+Drop the camera to chest height, exaggerate the back leg, and let the head lead the line of action. -->

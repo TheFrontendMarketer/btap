@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "Shooting the Black Series outdoors"
 description: "Balancing natural light with figure scale so the plastic reads like character, not toy shelf."
 publishDate: 2026-05-08 12:00:00
@@ -13,4 +13,4 @@ img_alt: Storm Trooper action figures sitting together outside
 
 ## Notes from the shoot
 
-Start wide, then step in until the environment supports the story without stealing focus from the helmet read.
+Start wide, then step in until the environment supports the story without stealing focus from the helmet read. -->

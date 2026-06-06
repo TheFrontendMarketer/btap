@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "Stormtrooper squads in the snow"
 description: "White balance and contrast when your subject is already mostly white plastic."
 publishDate: 2026-05-01 12:00:00
@@ -13,4 +13,4 @@ img_alt: Storm Trooper action figures sitting together outside
 
 ## Snow days
 
-Protect highlights on the armor; let the background carry most of the cool tone so the figure stays readable.
+Protect highlights on the armor; let the background carry most of the cool tone so the figure stays readable. -->

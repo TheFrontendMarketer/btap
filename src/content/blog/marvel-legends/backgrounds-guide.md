@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "Backgrounds that don’t fight the figure"
 description: "When to blur, when to simplify, and when to let the shelf read as environment."
 publishDate: 2026-04-24 12:00:00
@@ -14,4 +14,4 @@ img_alt: Spider-Punk jumping up in the air
 
 ## One rule of thumb
 
-If the background has a stronger silhouette than the figure, you’ve lost the read—soften it or reframe.
+If the background has a stronger silhouette than the figure, you’ve lost the read—soften it or reframe. -->
