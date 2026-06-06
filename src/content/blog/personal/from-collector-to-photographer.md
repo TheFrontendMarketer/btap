@@ -5,8 +5,6 @@ publishDate: 2026-05-10 12:00:00
 category: "Personal"
 tags:
   - Personal
-  - Marvel Legends
-  - Tutorial
 slug: featured-lightbox
 img: https://res.cloudinary.com/dhytwf10i/image/upload/v1780746102/first-blog-post_txiroc.png
 img_alt: Spider-Punk action figure mid-jump with guitar
